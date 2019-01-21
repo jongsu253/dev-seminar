@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+#include "cipher.h"
+
 char name[30];
 char phone[30];
 char address[30];
@@ -18,10 +20,13 @@ static void parse() {
 
 	int fd = open("credential", O_RDONLY);
 
-	char buffer[100] = {};
-	read(fd, buffer, 100);
+	char cipher_text[100] = {};
+	char plain_text[100];
 
-	sscanf(buffer, "%s %s %s", name, phone, address);
+	int size = read(fd, cipher_text, 100);
+	decrypt(cipher_text, plain_text, size);
+
+	sscanf(plain_text, "%s %s %s", name, phone, address);
 
 	is_parsed = true;
 
