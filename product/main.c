@@ -1,8 +1,10 @@
 #include <stdio.h>
   
 #include "transfer.h"
+#include "guard.h"
 
 int main(int argc, char* argv[]) {
+	init_guard();
 
     Transfer* transfer = get_file_transfer();
 

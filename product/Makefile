@@ -5,7 +5,8 @@ SOURCE := main.c \
 		  memory_transfer.c \
 		  file_transfer.c	\
 		  cipher.c			\
-		  defender.c
+		  defender.c		\
+		  guard.c
 
 CC = gcc
 CFLAGS = -m32
