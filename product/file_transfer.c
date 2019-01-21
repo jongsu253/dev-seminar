@@ -1,23 +1,54 @@
 #include "transfer.h"
-  
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+char name[30];
+char phone[30];
+char address[30];
+
+static void parse() {
+	static bool is_parsed = false;
+
+	if (is_parsed) {
+		return ;
+	}
+
+	int fd = open("credential", O_RDONLY);
+
+	char buffer[100] = {};
+	read(fd, buffer, 100);
+
+	sscanf(buffer, "%s %s %s", name, phone, address);
+
+	is_parsed = true;
+
+	close(fd);
+}
+
 static char* get_name() {
-    return NULL;
+	return name;
 }
 
 static char* get_phone() {
-    return NULL;
+	return phone;
 }
 
 static char* get_address() {
-    return NULL;
+	return address;
 }
 
 const static Transfer transfer = {
-    .get_user_name = get_name,
-    .get_user_phone = get_phone,
-    .get_user_address = get_address
+	.get_user_name = get_name,
+	.get_user_phone = get_phone,
+	.get_user_address = get_address
 };
 
 Transfer* get_file_transfer() {
-    return &transfer;
+	parse();
+
+	return &transfer;
 }
+

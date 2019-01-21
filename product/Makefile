@@ -2,7 +2,8 @@
 PROG_NAME := sample.out
 
 SOURCE := main.c \
-		  memory_transfer.c
+		  memory_transfer.c \
+		  file_transfer.c
 
 CC = gcc
 CFLAGS = -m32
