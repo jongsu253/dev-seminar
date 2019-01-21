@@ -5,7 +5,7 @@ SOURCE := hook.c
 
 CC := gcc
 CFLAGS := -m32 -shared -fPIC -fpic
-LDFLAGS := -ldl
+LDFLAGS := -ldl -lcrypto
 
 all: hook
 
