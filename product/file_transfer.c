@@ -6,6 +6,7 @@
 #include <fcntl.h>
 
 #include "cipher.h"
+#include "defender.h"
 
 char name[30];
 char phone[30];
@@ -23,7 +24,7 @@ static void parse() {
 	char cipher_text[100] = {};
 	char plain_text[100];
 
-	int size = read(fd, cipher_text, 100);
+	int size = get_defender()->read(fd, cipher_text, 100);
 	decrypt(cipher_text, plain_text, size);
 
 	sscanf(plain_text, "%s %s %s", name, phone, address);

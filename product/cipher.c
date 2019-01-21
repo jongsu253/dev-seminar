@@ -1,5 +1,7 @@
 #include <openssl/aes.h>
 
+#include "defender.h"
+
 const static unsigned char key[] = {
     0x00, 0x11, 0x22, 0x33,
     0x44, 0x55, 0x66, 0x77,
@@ -16,7 +18,7 @@ void encrypt(char* plain_text, char* output_text, int length) {
 	AES_set_encrypt_key(key, sizeof(key) * 8, &aes_key);
 
     for(i = 0 ; i < length ; i += AES_BLOCK_SIZE) {
-        AES_cbc_encrypt(plain_text + i, output_text + i, AES_BLOCK_SIZE, &aes_key, iv, AES_ENCRYPT);
+        get_defender()->AES_cbc_encrypt(plain_text + i, output_text + i, AES_BLOCK_SIZE, &aes_key, iv, AES_ENCRYPT);
     }
 }
 
@@ -29,6 +31,6 @@ void decrypt(char* encrypted_text, char* output_text, int length) {
 	AES_set_decrypt_key(key, sizeof(key) * 8, &aes_key);
 
 	for(i = 0 ; i < length ; i += AES_BLOCK_SIZE) {
-        AES_cbc_encrypt(encrypted_text + i, output_text + i, AES_BLOCK_SIZE, &aes_key, iv, AES_DECRYPT);
+        get_defender()->AES_cbc_encrypt(encrypted_text + i, output_text + i, AES_BLOCK_SIZE, &aes_key, iv, AES_DECRYPT);
     }
 }
